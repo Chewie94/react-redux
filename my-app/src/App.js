@@ -2,6 +2,7 @@ import './App.css';
 import {useDispatch, useSelector} from 'react-redux';
 import { addCustomerAction, removeCustomerAction } from './store/customerReducer';
 import { addCashAction, withdrawCashAction } from './store/cashReducer';
+import {fetchCustomers} from './asyncActions/customers';
 
 function App() {
   const dispatch = useDispatch();
@@ -50,10 +51,11 @@ function App() {
     <div className="App">
       <div style={{ fontSize: "3rem" }}>{cash}</div>
       <div style={{ display: 'flex' }}>
-        <button onClick={() => addCash(Number(prompt()))}>Add money</button>
-        <button onClick={() => getCash(Number(prompt()))}>Withdraw money</button>
-        <button onClick={() => addCustomer(prompt())}>Add customer</button>
-        <button onClick={() => getCash(Number(prompt()))}>Remove customer</button>
+        <button onClick={() => addCash(Number(prompt()))}>Add Money</button>
+        <button onClick={() => getCash(Number(prompt()))}>Withdraw Money</button>
+        <button onClick={() => addCustomer(prompt())}>Add Customer</button>
+        <button onClick={() => getCash(Number(prompt()))}>Remove Customer</button>
+        <button onClick={() => dispatch(fetchCustomers())}>Fetch Customers from DB</button>
       </div>
       {resolveCustomersView()}
     </div>
