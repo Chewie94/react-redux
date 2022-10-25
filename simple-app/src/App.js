@@ -54,7 +54,6 @@ function App() {
         <button onClick={() => addCash(Number(prompt()))}>Add Money</button>
         <button onClick={() => getCash(Number(prompt()))}>Withdraw Money</button>
         <button onClick={() => addCustomer(prompt())}>Add Customer</button>
-        <button onClick={() => getCash(Number(prompt()))}>Remove Customer</button>
         <button onClick={() => dispatch(fetchCustomers())}>Fetch Customers from DB</button>
       </div>
       {resolveCustomersView()}
