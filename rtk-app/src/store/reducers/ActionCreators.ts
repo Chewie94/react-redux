@@ -1,14 +1,27 @@
-import { AppDispatch } from "../store";
 import axios from 'axios';
 import { IUser } from "../../models/IUser";
-import { userSlice } from "./UserSlice";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const fetchUsers = () => async (dispatch: AppDispatch) => {
+// import { AppDispatch } from "../store";
+// import { userSlice } from "./UserSlice";
+
+// Simple
+// export const fetchUsers = () => async (dispatch: AppDispatch) => {
+//     try {
+//         dispatch(userSlice.actions.usersFetching())
+//         const response = await axios.get<IUser[]>('https://jsonplaceholder.typicode.com/users');
+//         dispatch(userSlice.actions.usersFetchingSuccess(response.data));
+//     } catch (e: any) {
+//         dispatch(userSlice.actions.usersFetchingError(e.message));
+//     }
+// }
+
+// Via createAsyncThunk
+export const fetchUsers = createAsyncThunk('user/fetchAll', async (_, thunkAPI) => {
     try {
-        dispatch(userSlice.actions.usersFetching())
         const response = await axios.get<IUser[]>('https://jsonplaceholder.typicode.com/users');
-        dispatch(userSlice.actions.usersFetchingSuccess(response.data));
-    } catch (e: any) {
-        dispatch(userSlice.actions.usersFetchingError(e.message));
+        return response.data;
+    } catch (e) {
+        return thunkAPI.rejectWithValue('Failed attempt to fetch users');
     }
-}
+})
